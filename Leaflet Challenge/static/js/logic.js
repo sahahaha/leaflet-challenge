@@ -22,8 +22,8 @@ function createFeatures(earthquakeData) {
 
     function onEachFeature(feature, layer) {
         layer.bindPopup("<h3 align='center'>" + feature.properties.place +
-            "</h3><hr><p><u>Occurrence:</u> " + new Date(feature.properties.time) + "</p>" +
-            "</h3><p><u>Magnitude:</u> " + feature.properties.mag + "</p>");
+            "</h3><hr><p>Time: " + new Date(feature.properties.time) + "</p>" +
+            "</h3><p>Magnitude: " + feature.properties.mag + "</p>");
     }
 
     var earthquakes = L.geoJSON(earthquakeData, {
@@ -78,23 +78,4 @@ function createMap(earthquakes) {
     L.control.layers(baseMaps, overlayMaps, {collapsed: false})
              .addTo(map);
 
-    var legend = L.control({position: 'bottomright'});
-  
-    legend.onAdd = function (map) {    
-        var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 1, 2, 3, 4],
-        labels = [];
-  
-        div.innerHTML+='Magnitude Legend<br><hr>'
-    
-        for (var i = 0; i < grades.length; i++) {
-            div.innerHTML +=
-                '<i style="background:' + getColor(grades[i] + 1) + '">&nbsp&nbsp&nbsp&nbsp</i> ' +
-                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    }
-    
-    return div;
-    };
-    
-    legend.addTo(map);
 }
