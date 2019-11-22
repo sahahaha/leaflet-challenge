@@ -4,15 +4,16 @@ d3.json(url, function(data) {
     createFeatures(data.features);
 });
 
-function getColor(d) {
 
-    if (d < 1) {
+function getColor(mag) {
+
+    if (mag < 1) {
         return 'rgb(0, 255, 0)'
-    } else if (d < 2) {
+    } else if (mag < 2) {
         return 'rgb(255, 255, 102)'
-    } else if (d < 3) {
+    } else if (mag < 3) {
         return 'rgb(255, 102, 0)'
-    } else if (d < 4) {
+    } else if (mag < 4) {
         return 'rgb(255, 0, 0)'
     } else {
         return 'rgb(128, 0, 0)'
@@ -30,9 +31,9 @@ function createFeatures(earthquakeData) {
         onEachFeature: onEachFeature,
         pointToLayer: function (feature, latlng) {
             var geojsonMarkerOptions = {
-            radius: 4*feature.properties.mag,
+            radius: 3*feature.properties.mag,
             fillColor: getColor(feature.properties.mag),
-            color: "black",
+            color: getColor(feature.properties.mag),
             weight: 1,
             opacity: 1,
             fillOpacity: 0.8
@@ -70,8 +71,8 @@ function createMap(earthquakes) {
     };
 
     var map = L.map("map", {
-        center: [39.83, -98.58],
-        zoom: 4.5,
+        center: [39.8283, -98.5795],
+        zoom: 5,
         layers: [outdoors, earthquakes]
     });
 
